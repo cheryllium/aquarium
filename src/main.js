@@ -46,14 +46,21 @@ function setup() {
       )
     );
   }
+
+  actionManager.activeScripts.push(
+    {
+      fish: fishInTank[0],
+      script: 'happy',
+    }
+  );
 }
 
 function draw() {
   background(bg);
   fishInTank.forEach(fish => {
-    actionManager.update(); 
     fish.update();
-  }); 
+  });
+  actionManager.update(); 
 }
 
 window.preload = preload; 

@@ -155,4 +155,8 @@ export default class Fish {
       }.bind(this), timeout);
     }
   }
+
+  reset () {
+    this.emotion = null; 
+  }
 }
