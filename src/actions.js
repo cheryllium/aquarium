@@ -29,7 +29,7 @@ export const SCRIPTS = {
 
 export default class ActionManager {
   constructor () {
-    this.activeScripts = []; 
+    this.fishRoutines = []; 
   }
 
   doAction (fish, action) {
@@ -55,28 +55,28 @@ export default class ActionManager {
   }
   
   update () {
-    for (let script of this.activeScripts) {
-      if (typeof(script.step) === 'undefined') {
+    for (let routine of this.fishRoutines) {
+      if (typeof(routine.step) === 'undefined') {
         // First step
-        script.step = 0;
-        script.last = Date.now();
-        script.fish.action = true;
-        this.doAction(script.fish, script.script[script.step]);
+        routine.step = 0;
+        routine.last = Date.now();
+        routine.fish.action = true;
+        this.doAction(routine.fish, routine.script[routine.step]);
       } else {
-        if (Date.now() > script.last + script.script[script.step].duration) {
-          if (script.step == script.script.length - 1) {
+        if (Date.now() > routine.last + routine.script[routine.step].duration) {
+          if (routine.step == routine.script.length - 1) {
             // Finished the last step
-            script.fish.reset();
-            script.remove = true;
+            routine.fish.reset();
+            routine.remove = true;
           } else {
-            script.step++;
-            script.last = Date.now()
-            this.doAction(script.fish, script.script[script.step]);
+            routine.step++;
+            routine.last = Date.now()
+            this.doAction(routine.fish, routine.script[routine.step]);
           }
         }
       }
     }
 
-    this.activeScripts = this.activeScripts.filter(script => !script.remove);
+    this.fishRoutines = this.fishRoutines.filter(routine => !routine.remove);
   }
 }

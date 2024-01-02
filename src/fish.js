@@ -134,7 +134,7 @@ export default class Fish {
     // Make sure fish stays within bounds of tank
     let marginX = 40;
     let marginY = 80; 
-    let turnFactor = 15;
+    let turnFactor = 25;
     if (this.x < marginX) {
       this.dx += turnFactor; 
     }

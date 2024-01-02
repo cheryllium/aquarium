@@ -48,7 +48,7 @@ function setup() {
 }
 
 let lastAction = Date.now();
-let actionDelta = 2000;
+let actionDelta = 4000;
 
 function draw() {
   background(bg);
@@ -56,9 +56,9 @@ function draw() {
     fish.update();
 
     if (Date.now() > lastAction + actionDelta) {
-      if(!fish.action && Math.random() < 0.2) {
-        lastAction = Date.now(); 
-        actionManager.activeScripts.push(
+      if(!fish.action && Math.random() < 0.5) {
+        lastAction = Date.now();
+        actionManager.fishRoutines.push(
           {
             fish,
             script: SCRIPTS.happy,
