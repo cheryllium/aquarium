@@ -12,7 +12,8 @@ export default class Fish {
     }
     this.dy = Math.random() * 0.2 - 0.1; 
     
-    this.emote = 0; 
+    this.emotion = null;
+    this.action = false; 
   }
 
   moveTowardsCenter() {
@@ -39,7 +40,7 @@ export default class Fish {
   }
 
   avoidCollisions() {
-    let minDistance = 15;
+    let minDistance = 25;
     let avoidFactor = 0.1;
     let moveX = 0;
     let moveY = 0;
@@ -91,15 +92,20 @@ export default class Fish {
       this.dy = 0.3;
     }
   }
-  
-  /* Moves the fish according to its velocity, making sure it's 
-   * facing the right direction, and updating any anchored images. */
-  swim () {
+
+  boids () {
     // Boids rules
     this.moveTowardsCenter();
     this.avoidCollisions();
     this.matchVelocity();
     this.limitSpeed(); 
+  }
+  
+  /* Moves the fish according to its velocity, making sure it's 
+   * facing the right direction, and updating any anchored images. */
+  update () {
+    // Update velocity based on state
+    this.boids(); 
     
     // Make sure fish stays within bounds of tank
     let marginX = 40;
@@ -126,26 +132,33 @@ export default class Fish {
       translate(this.x, this.y);
       scale(-1, 1);
       image(fishImages[this.type-1], -fishImages[this.type-1].width, 0);
-      if (this.emote > 0) {
-        image(emoteImages[this.emote-1],
-              -emoteImages[this.emote-1].width - fishImages[this.type-1].width + 15,
+      if (this.emotion) {
+        image(emoteImages[this.emotion],
+              -emoteImages[this.emotion].width - fishImages[this.type-1].width + 15,
               -20);
       }
       pop(); 
     } else {
       image(fishImages[this.type-1], this.x, this.y);
-      if (this.emote > 0) {
-        image(emoteImages[this.emote-1],
-              this.x - fishImages[this.type-1].width + emoteImages[this.emote-1].width/2 + 15,
+      if (this.emotion) {
+        image(emoteImages[this.emotion],
+              this.x - fishImages[this.type-1].width + emoteImages[this.emotion].width/2 + 15,
               this.y - 20);
       }
     }
   }
 
-  talk (eid) {
-    this.emote = eid;
-    setTimeout(function () {
-      this.emote = 0; 
-    }.bind(this), 3000); 
+  emote (emotion, timeout) {
+    this.emotion = emotion;
+    if (timeout) {
+      setTimeout(function () {
+        this.emotion = null; 
+      }.bind(this), timeout);
+    }
+  }
+
+  reset () {
+    this.emotion = null;
+    this.action = false; 
   }
 }
