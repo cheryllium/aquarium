@@ -1,5 +1,5 @@
 import Fish from './fish.js';
-import ActionManager from './actions.js';
+import ActionManager, { SCRIPTS } from './actions.js';
 
 window.GAME_HEIGHT = 768;
 window.GAME_WIDTH = 768;
@@ -61,7 +61,7 @@ function draw() {
         actionManager.activeScripts.push(
           {
             fish,
-            script: 'happy',
+            script: SCRIPTS.happy,
           }
         );
       }

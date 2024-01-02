@@ -1,3 +1,8 @@
+export const states = {
+  BOIDING: 1,
+  IDLING: 2,
+  MOVING: 3, 
+};
 let visualRange = 15; // Visual range of a fish
 
 export default class Fish {
@@ -6,23 +11,31 @@ export default class Fish {
     this.x = x;
     this.y = y;
 
-    this.dx = Math.random() * 1 + 0.4;
-    if (Math.random() < 0.5) {
-      this.dx *= -1; 
-    }
-    this.dy = Math.random() * 0.2 - 0.1; 
-    
+    this.setRandomVelocity(); 
+
+    this.state = states.BOIDING;
     this.emotion = null;
     this.action = false; 
   }
 
+  setRandomVelocity() {
+    this.dx = Math.random() * 30 + 90;
+    if (Math.random() < 0.5) {
+      this.dx *= -1; 
+    }
+    this.dy = Math.random() * 30;
+    if (Math.random() < 0.5) {
+      this.dy *= -1; 
+    }
+  }
+  
   moveTowardsCenter() {
     let centeringFactor = 0.2;
     let centerX = 0;
     let centerY = 0;
     let numNeighbors = 0;
 
-    for(let otherFish of fishInTank) {
+    for(let otherFish of fishInTank.filter(fish => fish.state === states.BOIDING)) {
       if (distance(this.x, this.y, otherFish.x, otherFish.y) < visualRange) {
         centerX += otherFish.x;
         centerY += otherFish.y;
@@ -44,7 +57,7 @@ export default class Fish {
     let avoidFactor = 0.1;
     let moveX = 0;
     let moveY = 0;
-    for(let otherFish of fishInTank) {
+    for(let otherFish of fishInTank.filter(fish => fish.state === states.BOIDING)) {
       if (otherFish !== this) {
         if (distance(this.x, this.y, otherFish.x, otherFish.y) < minDistance) {
           moveX += this.x - otherFish.x;
@@ -62,7 +75,7 @@ export default class Fish {
     let avgDx = 0;
     let avgDy = 0;
     let numNeighbors = 0; 
-    for(let otherFish of fishInTank) {
+    for(let otherFish of fishInTank.filter(fish => fish.state === states.BOIDING)) {
       if (distance(this.x, this.y, otherFish.x, otherFish.y) < visualRange) {
         avgDx += otherFish.dx;
         avgDy += otherFish.dy;
@@ -80,7 +93,7 @@ export default class Fish {
   }
 
   limitSpeed() {
-    let speedLimit = 1;
+    let speedLimit = 175;
     let speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     if (speed > speedLimit) {
       this.dx = (this.dx / speed) * speedLimit;
@@ -88,8 +101,8 @@ export default class Fish {
     }
 
     // Limit Y velocity of boids
-    if (this.dy > 0.3) {
-      this.dy = 0.3;
+    if (this.dy > 50) {
+      this.dy = 50;
     }
   }
 
@@ -105,12 +118,23 @@ export default class Fish {
    * facing the right direction, and updating any anchored images. */
   update () {
     // Update velocity based on state
-    this.boids(); 
-    
+    switch (this.state) {
+      case states.BOIDING: 
+        this.boids();
+        break;
+      case states.IDLING:
+        this.dx = 0;
+        this.dy = 0; 
+        break;
+      case states.MOVING:
+        // Just move according to its velocity
+        break; 
+    }
+
     // Make sure fish stays within bounds of tank
     let marginX = 40;
     let marginY = 80; 
-    let turnFactor = 1;
+    let turnFactor = 15;
     if (this.x < marginX) {
       this.dx += turnFactor; 
     }
@@ -125,8 +149,8 @@ export default class Fish {
     }
     
     // Move fish forward
-    this.x += this.dx;
-    this.y += this.dy; 
+    this.x += this.dx * deltaTime / 1000;
+    this.y += this.dy * deltaTime / 1000;
     if (this.dx > 0) {
       push();
       translate(this.x, this.y);
@@ -159,6 +183,9 @@ export default class Fish {
 
   reset () {
     this.emotion = null;
+    this.state = states.BOIDING; 
+    this.setRandomVelocity(); 
     this.action = false; 
   }
 }
+
