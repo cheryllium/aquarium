@@ -13,6 +13,7 @@ export default class Fish {
     this.dy = Math.random() * 0.2 - 0.1; 
     
     this.emotion = null;
+    this.action = false; 
   }
 
   moveTowardsCenter() {
@@ -39,7 +40,7 @@ export default class Fish {
   }
 
   avoidCollisions() {
-    let minDistance = 15;
+    let minDistance = 25;
     let avoidFactor = 0.1;
     let moveX = 0;
     let moveY = 0;
@@ -157,6 +158,7 @@ export default class Fish {
   }
 
   reset () {
-    this.emotion = null; 
+    this.emotion = null;
+    this.action = false; 
   }
 }

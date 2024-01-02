@@ -30,6 +30,7 @@ export default class ActionManager {
         // First step
         script.step = 0;
         script.last = Date.now();
+        script.fish.action = true;
         this.doAction(script.fish, SCRIPTS[script.script][script.step]);
       } else {
         if (Date.now() > script.last + SCRIPTS[script.script][script.step].duration) {

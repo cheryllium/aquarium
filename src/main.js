@@ -7,7 +7,6 @@ window.NUM_TYPES_FISH = 10;
 
 window.bg = null; // The aquarium's background image
 window.fishImages = []; // The fish images
-window.emoteImages = []; // The emote images
 window.emoteImages = {
   heart: null,
   happy: null,
@@ -46,19 +45,27 @@ function setup() {
       )
     );
   }
-
-  actionManager.activeScripts.push(
-    {
-      fish: fishInTank[0],
-      script: 'happy',
-    }
-  );
 }
+
+let lastAction = Date.now();
+let actionDelta = 2000;
 
 function draw() {
   background(bg);
   fishInTank.forEach(fish => {
     fish.update();
+
+    if (Date.now() > lastAction + actionDelta) {
+      if(!fish.action && Math.random() < 0.2) {
+        lastAction = Date.now(); 
+        actionManager.activeScripts.push(
+          {
+            fish,
+            script: 'happy',
+          }
+        );
+      }
+    }
   });
   actionManager.update(); 
 }
