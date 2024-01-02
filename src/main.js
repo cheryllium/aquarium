@@ -1,4 +1,5 @@
 import Fish from './fish.js';
+import ActionManager from './actions.js';
 
 window.GAME_HEIGHT = 768;
 window.GAME_WIDTH = 768;
@@ -7,7 +8,14 @@ window.NUM_TYPES_FISH = 10;
 window.bg = null; // The aquarium's background image
 window.fishImages = []; // The fish images
 window.emoteImages = []; // The emote images
+window.emoteImages = {
+  heart: null,
+  happy: null,
+  sleepy: null,
+  angry: null,
+};
 window.fishInTank = []; // Fish currently in the tank
+window.actionManager = new ActionManager(); 
 
 function preload() {
   // Load background image
@@ -21,7 +29,9 @@ function preload() {
   }
 
   // Load emote images
-  emoteImages.push(loadImage('assets/speech/speech-bubble-heart.png')); 
+  for(let key of Object.keys(emoteImages)) {
+    emoteImages[key] = loadImage(`assets/speech/speech-bubble-${key}.png`)
+  }
 }
 
 function setup() {
@@ -36,18 +46,13 @@ function setup() {
       )
     );
   }
-
-  fishInTank[0].talk(1);
 }
 
 function draw() {
   background(bg);
   fishInTank.forEach(fish => {
-    fish.swim();
-
-    if(!fish.emote && Math.random() < 0.001) {
-      fish.talk(1); 
-    }
+    actionManager.update(); 
+    fish.update();
   }); 
 }
 

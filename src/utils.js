@@ -9,3 +9,7 @@ function randomIntFromInterval(min, max) { // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+/* The current unix time in seconds */
+function currentTime () {
+  return Math.floor(Date.now() / 1000)
+}
