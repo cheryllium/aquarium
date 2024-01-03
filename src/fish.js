@@ -132,16 +132,6 @@ export default class Fish {
   /* Moves the fish according to its velocity, making sure it's 
    * facing the right direction, and updating any anchored images. */
   update () {
-    /* If off-screen, teleport to random location and reset velocity */
-    let offscreenMargin = 50; 
-    if (this.x < -offscreenMargin || this.x > GAME_WIDTH + offscreenMargin
-        || this.y < -offscreenMargin || this.y > GAME_HEIGHT + offscreenMargin
-       ) {
-      this.x = randomIntFromInterval(100, 600);
-      this.y = randomIntFromInterval(100, 600);
-      this.setRandomVelocity(); 
-    }
-    
     // Move towards nearby food if not in the middle of an action
     if (!this.action) {
       this.moveTowardsFood(); 
@@ -179,6 +169,12 @@ export default class Fish {
     }
     
     // Move fish forward
+    if (deltaTime > 100) {
+      // If browser tab was inactive for a length of time,
+      // reset deltaTime to something reasonable
+      // so that fish don't go flying!
+      deltaTime = 30; 
+    }
     this.x += this.dx * deltaTime / 1000;
     this.y += this.dy * deltaTime / 1000;
 

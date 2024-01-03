@@ -31,8 +31,9 @@ export default class RoutineManager {
     this.events = []; 
   }
 
-  addEvent(delta, chance, callback) {
+  addEvent(id, delta, chance, callback) {
     this.events.push({
+      id, 
       lastFired: Date.now(),
       update: function () {
         if (Date.now() > this.lastFired + delta) {
@@ -44,6 +45,10 @@ export default class RoutineManager {
       }
     });
   }
+
+  removeEvent(id) {
+    this.events = this.events.filter(event => event.id != id);
+  }
   
   update () {
     // Check if any fish has collided with a food item
@@ -51,7 +56,7 @@ export default class RoutineManager {
       foodInTank.forEach(food => {
         // Food center is just the center of the food (x and y)
         let center1 = {x: food.x, y: food.y}; 
-        // Food radius is the width of the food
+        // Food radius is half the width of the food
         let radius1 = foodImages[food.type].width / 2;
         
         // Fish center is going to be a little left or right of the mouth depending
@@ -97,7 +102,7 @@ export default class RoutineManager {
 
   initialize () {
     // Random happy fish
-    this.addEvent(4000, 0.5, function () {
+    this.addEvent('general-mood', 4000, 0.5, function () {
       let filteredFish = fishInTank.filter(fish => !fish.action);
       let fish = filteredFish[randomIntFromInterval(0, filteredFish.length - 1)]; 
       actionManager.fishRoutines.push(
@@ -109,7 +114,7 @@ export default class RoutineManager {
     });
 
     // Random fish conversation
-    this.addEvent(10000, 0.4, function () {
+    this.addEvent('conversations', 10000, 0.4, function () {
       let filteredFish = fishInTank.filter(fish => !fish.action);
 
       // Find two random fish
