@@ -1,4 +1,5 @@
 import Fish from './fish.js';
+import Food from './food.js'; 
 import ActionManager from './actions.js';
 import RoutineManager from './routines.js';
 
@@ -14,7 +15,14 @@ window.emoteImages = {
   sleepy: null,
   angry: null,
 };
+window.foodImages = {
+  broccoli: null,
+  hamburger: null,
+  icecream: null,
+  pumpkinpie: null,
+}; 
 window.fishInTank = []; // Fish currently in the tank
+window.foodInTank = []; 
 window.actionManager = new ActionManager();
 window.routineManager = new RoutineManager(); 
 
@@ -33,6 +41,11 @@ function preload() {
   for(let key of Object.keys(emoteImages)) {
     emoteImages[key] = loadImage(`assets/speech/speech-bubble-${key}.png`)
   }
+
+  // Load food images
+  for(let key of Object.keys(foodImages)) {
+    foodImages[key] = loadImage(`assets/food/${key}.png`); 
+  }
 }
 
 function setup() {
@@ -48,18 +61,36 @@ function setup() {
     );
   }
 
+  foodInTank.push(new Food('hamburger', 100, 100)); 
+  
   routineManager.initialize(); 
 }
 
 function draw() {
   background(bg);
+  
   fishInTank.forEach(fish => {
     fish.update();
   });
+  foodInTank.forEach(food => {
+    food.update(); 
+  });
+  foodInTank = foodInTank.filter(food => !food.remove);
+  
   actionManager.update();
   routineManager.update(); 
+}
+
+function mouseClicked() {
+  console.log('mouse clicked');
+  let foodKeys = Object.keys(foodImages);
+  let randomFood = foodKeys[randomIntFromInterval(0, foodKeys.length-1)];
+  foodInTank.push(
+    new Food(randomFood, mouseX, mouseY)
+  );
 }
 
 window.preload = preload; 
 window.setup = setup;
 window.draw = draw; 
+window.mouseClicked = mouseClicked; 
