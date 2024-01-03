@@ -1,6 +1,27 @@
 export default class UIManager {
   constructor () {
-    this.records = []; 
+    this.records = [];
+
+    let leftSidebar = document.querySelector("#sidebar-left");
+    leftSidebar.addEventListener("click", function (event) {
+      fishInTank.forEach(fish => {
+        if (fish.selected) {
+          this.updateSelected(fish, false); 
+        }
+      });
+    }.bind(this)); 
+    
+    let recordsSidebar = document.querySelector("#sidebar-right");
+    recordsSidebar.addEventListener("click", function (event) {
+      let recordClicked = event.target.closest(".record");
+      if (!recordClicked) {
+        fishInTank.forEach(fish => {
+          if (fish.selected) {
+            this.updateSelected(fish, false); 
+          }
+        });
+      }
+    }.bind(this)); 
   }
   
   updateSelected(fish, value) {

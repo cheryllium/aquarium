@@ -4,7 +4,7 @@ export const SCRIPTS = {
   happy: [
     { type: 'emote', value: 'happy', duration: 3000 }, // Set emote to happy, wait 3s
     { type: 'emote', value: null, duration: 1000 }, // Set emote to nothing, wait 3s
-    { type: 'state', value: fishStates.IDLING, duration: 2000 }, // Set state to idling for 2s
+    { type: 'state', value: fishStates.IDLING, duration: 1000 }, // Set state to idling
     { type: 'state', value: fishStates.BOIDING, duration: 0 }, // Set state to boiding, go to next action
     { type: 'emote', value: 'heart', duration: 3000 }, // Set emote to heart, wait 3s
   ],
