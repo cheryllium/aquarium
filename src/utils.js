@@ -13,3 +13,21 @@ function randomIntFromInterval(min, max) { // min and max included
 function currentTime () {
   return Math.floor(Date.now() / 1000)
 }
+
+function randomFishName() {
+  let one = [
+    "An", "Art",  "Bart", "Cal", "Cor", "Dar", "Dac", "Ell", "Fant", "Fin", "Gin", "Gan", "Gat", "Hol", "Holl", "Heff", "Hid", "Iol", "Is", "Jul", "Lor", "Lun", "Mack", "Nash", "Slart",  "Sol", 
+  ];
+  let two = ["i", "a", "an", "o", "ou", "en"];
+  let three = ["na", "fer", "nol", "nette", "lette", "nice", "nis", "lyr", "la", "rice"];
+
+  randOne = one[randomIntFromInterval(0, one.length-1)];
+  randTwo = two[randomIntFromInterval(0, two.length-1)];
+  randThree = three[randomIntFromInterval(0, three.length-1)];
+
+  if (Math.random() > 0.5) {
+    return randOne + randThree; 
+  } else {
+    return randOne + randTwo + randThree;
+  }
+}

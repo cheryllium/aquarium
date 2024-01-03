@@ -85,7 +85,8 @@ export default class RoutineManager {
             {
               fish, script: SCRIPTS.happy,
             }
-          ); 
+          );
+          uiManager.addRecord(`FISH1 ate a delicious ${food.type}!`, fish);
         }
       }); 
     });
@@ -146,6 +147,9 @@ export default class RoutineManager {
       actionManager.fishRoutines.push(
         { fish: filteredFish[indexB], script: scriptB }
       );
+
+      // Add record
+      uiManager.addRecord(`FISH1 and FISH2 are having a nice chat!`, filteredFish[indexA], filteredFish[indexB]);
     }); 
   }
 }

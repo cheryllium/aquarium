@@ -2,6 +2,7 @@ import Fish from './fish.js';
 import Food from './food.js'; 
 import ActionManager from './actions.js';
 import RoutineManager from './routines.js';
+import UIManager from './ui.js';
 
 window.GAME_HEIGHT = 768;
 window.GAME_WIDTH = 768;
@@ -9,6 +10,7 @@ window.NUM_TYPES_FISH = 10;
 
 window.bg = null; // The aquarium's background image
 window.fishImages = []; // The fish images
+window.fishImagesSelected = []; 
 window.emoteImages = {
   heart: null,
   happy: null,
@@ -24,7 +26,8 @@ window.foodImages = {
 window.fishInTank = []; // Fish currently in the tank
 window.foodInTank = []; 
 window.actionManager = new ActionManager();
-window.routineManager = new RoutineManager(); 
+window.routineManager = new RoutineManager();
+window.uiManager = new UIManager(); 
 
 function preload() {
   // Load background image
@@ -35,8 +38,11 @@ function preload() {
     fishImages.push(
       loadImage(`assets/fish/fish${i}.png`)
     );
+    fishImagesSelected.push(
+      loadImage(`assets/fish/fish${i}-selected.png`)
+    );
   }
-
+  
   // Load emote images
   for(let key of Object.keys(emoteImages)) {
     emoteImages[key] = loadImage(`assets/speech/speech-bubble-${key}.png`)
@@ -78,12 +84,39 @@ function draw() {
   routineManager.update();
 }
 
-function mouseClicked() {
-  let foodKeys = Object.keys(foodImages);
-  let randomFood = foodKeys[randomIntFromInterval(0, foodKeys.length-1)];
-  foodInTank.push(
-    new Food(randomFood, mouseX, mouseY)
-  );
+function mouseClicked(event) {
+  // Do nothing else if mouse is off screen
+  if (mouseX < 0 || mouseX > GAME_WIDTH
+      || mouseY < 0 || mouseY > GAME_HEIGHT) {
+    return; 
+  }
+
+  // Deselect any selected fish
+  for(let fish of fishInTank) {
+    if (fish.selected) {
+      uiManager.updateSelected(fish, false); 
+    }
+  }
+
+  // If you clicked on a fish, select the fish  
+  let spawnFood = true;
+  for(let fish of fishInTank) {
+    if (mouseX > fish.x && mouseX < fish.x + fishImages[fish.type-1].width
+        && mouseY > fish.y && mouseY < fish.y + fishImages[fish.type-1].height) {
+      spawnFood = false;
+      uiManager.updateSelected(fish, true);
+      break; 
+    }
+  }
+
+  // Otherwise, spawn food
+  if (spawnFood) {
+    let foodKeys = Object.keys(foodImages);
+    let randomFood = foodKeys[randomIntFromInterval(0, foodKeys.length-1)];
+    foodInTank.push(
+      new Food(randomFood, mouseX, mouseY)
+    );
+  }
 }
 
 window.preload = preload; 

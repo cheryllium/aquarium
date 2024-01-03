@@ -17,7 +17,11 @@ export default class Fish {
     this.emotion = null;
     this.action = false;
 
-    this.flipOverride = null; 
+    this.flipOverride = null;
+    this.selected = false;
+
+    // Personal information about this fish
+    this.name = randomFishName(); 
   }
 
   setRandomVelocity() {
@@ -184,11 +188,15 @@ export default class Fish {
     this.x += this.dx * deltaTime / 1000;
     this.y += this.dy * deltaTime / 1000;
 
+    let fishImage = fishImages[this.type-1];
+    if (this.selected) {
+      fishImage = fishImagesSelected[this.type-1]; 
+    }
     if (this.isFlipped()) {
       push();
       translate(this.x, this.y);
       scale(-1, 1);
-      image(fishImages[this.type-1], -fishImages[this.type-1].width, 0);
+      image(fishImage, -fishImage.width, 0);
       if (this.emotion) {
         image(emoteImages[this.emotion],
               -emoteImages[this.emotion].width - fishImages[this.type-1].width + 15,
@@ -196,10 +204,10 @@ export default class Fish {
       }
       pop(); 
     } else {
-      image(fishImages[this.type-1], this.x, this.y);
+      image(fishImage, this.x, this.y);
       if (this.emotion) {
         image(emoteImages[this.emotion],
-              this.x - fishImages[this.type-1].width + emoteImages[this.emotion].width/2 + 15,
+              this.x - fishImage.width + emoteImages[this.emotion].width/2 + 15,
               this.y - 20);
       }
     }
