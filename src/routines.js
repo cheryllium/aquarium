@@ -61,14 +61,8 @@ export default class RoutineManager {
         
         // Fish center is going to be a little left or right of the mouth depending
         // on which way the fish is facing
-        let flipped = false;
-        if (fish.flipOverride === 'right') {
-          flipped = true; 
-        } else if (!fish.flipOverride) {
-          flipped = fish.dx > 0; 
-        }
         let center2 = {x: fish.x, y: fish.y + fishImages[fish.type-1].height/2};
-        if (flipped) {
+        if (fish.isFlipped()) {
           center2.x += fishImages[fish.type-1].width - 10; 
         } else {
           center2.x += 10; 

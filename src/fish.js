@@ -128,6 +128,13 @@ export default class Fish {
       }
     }); 
   }
+
+  isFlipped() {
+    if (!this.flipOverride) {
+      return this.dx > 0; 
+    }
+    return this.flipOverride === 'right'; 
+  }
   
   /* Moves the fish according to its velocity, making sure it's 
    * facing the right direction, and updating any anchored images. */
@@ -178,14 +185,7 @@ export default class Fish {
     this.x += this.dx * deltaTime / 1000;
     this.y += this.dy * deltaTime / 1000;
 
-    let flipped = false;
-    if (this.flipOverride === 'right') {
-      flipped = true; 
-    } else if (!this.flipOverride) {
-      flipped = this.dx > 0; 
-    }
-    
-    if (flipped) {
+    if (this.isFlipped()) {
       push();
       translate(this.x, this.y);
       scale(-1, 1);
