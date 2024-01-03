@@ -15,7 +15,9 @@ export default class Fish {
 
     this.state = states.BOIDING;
     this.emotion = null;
-    this.action = false; 
+    this.action = false;
+
+    this.flipOverride = null; 
   }
 
   setRandomVelocity() {
@@ -151,7 +153,15 @@ export default class Fish {
     // Move fish forward
     this.x += this.dx * deltaTime / 1000;
     this.y += this.dy * deltaTime / 1000;
-    if (this.dx > 0) {
+
+    let flipped = false;
+    if (this.flipOverride === 'right') {
+      flipped = true; 
+    } else if (!this.flipOverride) {
+      flipped = this.dx > 0; 
+    }
+    
+    if (flipped) {
       push();
       translate(this.x, this.y);
       scale(-1, 1);
@@ -185,7 +195,7 @@ export default class Fish {
     this.emotion = null;
     this.state = states.BOIDING; 
     this.setRandomVelocity(); 
-    this.action = false; 
+    this.action = false;
+    this.flipOverride = null; 
   }
 }
-

@@ -1,5 +1,6 @@
 import Fish from './fish.js';
-import ActionManager, { SCRIPTS } from './actions.js';
+import ActionManager from './actions.js';
+import RoutineManager from './routines.js';
 
 window.GAME_HEIGHT = 768;
 window.GAME_WIDTH = 768;
@@ -14,7 +15,8 @@ window.emoteImages = {
   angry: null,
 };
 window.fishInTank = []; // Fish currently in the tank
-window.actionManager = new ActionManager(); 
+window.actionManager = new ActionManager();
+window.routineManager = new RoutineManager(); 
 
 function preload() {
   // Load background image
@@ -45,29 +47,17 @@ function setup() {
       )
     );
   }
-}
 
-let lastAction = Date.now();
-let actionDelta = 4000;
+  routineManager.initialize(); 
+}
 
 function draw() {
   background(bg);
   fishInTank.forEach(fish => {
     fish.update();
-
-    if (Date.now() > lastAction + actionDelta) {
-      if(!fish.action && Math.random() < 0.5) {
-        lastAction = Date.now();
-        actionManager.fishRoutines.push(
-          {
-            fish,
-            script: SCRIPTS.happy,
-          }
-        );
-      }
-    }
   });
-  actionManager.update(); 
+  actionManager.update();
+  routineManager.update(); 
 }
 
 window.preload = preload; 

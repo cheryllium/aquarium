@@ -12,27 +12,13 @@ import { states as fishStates } from './fish.js';
 * When a script is done running, the fish's state is reset to boiding 
 * with no emote, by calling the reset() method on the fish. 
 */
-
-export const SCRIPTS = {
-  happy: [
-    { type: 'emote', value: 'happy', duration: 3000 }, // Set emote to happy, wait 3s
-    { type: 'emote', value: null, duration: 1000 }, // Set emote to nothing, wait 3s
-    { type: 'state', value: fishStates.IDLING, duration: 2000 }, // Set state to idling for 2s
-    { type: 'state', value: fishStates.BOIDING, duration: 0 }, // Set state to boiding, go to next action
-    { type: 'emote', value: 'heart', duration: 3000 }, // Set emote to heart, wait 3s
-  ],
-  moveToCorner: [
-    { type: 'state', value: fishStates.MOVING, duration: 4000, moveto: {x: 500, y: 500} },
-    { type: 'state', value: fishStates.IDLING, duration: 4000 }
-  ],
-};
-
 export default class ActionManager {
   constructor () {
     this.fishRoutines = []; 
   }
 
   doAction (fish, action) {
+    console.log('doing action', action);
     switch (action.type) {
       case 'emote':
         fish.emote(action.value);
@@ -50,6 +36,9 @@ export default class ActionManager {
               fish.dy = (action.moveto.y - fish.y) / action.duration * 1000; 
             }
         }
+        break;
+      case 'flip':
+        fish.flipOverride = action.value;
         break;
     }
   }
