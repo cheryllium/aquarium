@@ -122,7 +122,6 @@ export default class Fish {
       let d = distance(this.x, this.y, food.x, food.y); 
       // If distance is within a certain amount, move towards food
       if (d < 250) {
-        console.log('adjusting for food');
         this.dx += (food.x - this.x) / 70;
         this.dy += (food.y - this.y) / 70;
       }
