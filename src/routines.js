@@ -46,6 +46,51 @@ export default class RoutineManager {
   }
   
   update () {
+    // Check if any fish has collided with a food item
+    fishInTank.forEach(fish => {
+      foodInTank.forEach(food => {
+        // Food center is just the center of the food (x and y)
+        let center1 = {x: food.x, y: food.y}; 
+        // Food radius is the width of the food
+        let radius1 = foodImages[food.type].width / 2;
+        
+        // Fish center is going to be a little left or right of the mouth depending
+        // on which way the fish is facing
+        let flipped = false;
+        if (fish.flipOverride === 'right') {
+          flipped = true; 
+        } else if (!fish.flipOverride) {
+          flipped = fish.dx > 0; 
+        }
+        let center2 = {x: fish.x, y: fish.y + fishImages[fish.type-1].height/2};
+        if (flipped) {
+          center2.x += fishImages[fish.type-1].width - 10; 
+        } else {
+          center2.x += 10; 
+        }
+        // Fish radius is always hard-coded to the same value
+        let radius2 = 10; 
+
+        // Draw the circles for debugging purposes
+        /*/
+        circle(center1.x, center1.y, radius1 * 2);
+        circle(center2.x, center2.y, radius2 * 2);
+        //*/
+
+        let d = distance(center1.x, center1.y, center2.x, center2.y);
+        let collision = d <= radius1 + radius2;
+        
+        if (collision) {
+          food.remove = true;
+          actionManager.fishRoutines.push(
+            {
+              fish, script: SCRIPTS.happy,
+            }
+          ); 
+        }
+      }); 
+    });
+    
     // Routine random events
     this.events.forEach(event => event.update());
   }
@@ -65,8 +110,6 @@ export default class RoutineManager {
 
     // Random fish conversation
     this.addEvent(10000, 0.4, function () {
-      console.log('Starting conversation');
-      
       let filteredFish = fishInTank.filter(fish => !fish.action);
 
       // Find two random fish

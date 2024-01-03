@@ -75,11 +75,10 @@ function draw() {
   foodInTank = foodInTank.filter(food => !food.remove);
   
   actionManager.update();
-  routineManager.update(); 
+  routineManager.update();
 }
 
 function mouseClicked() {
-  console.log('mouse clicked');
   let foodKeys = Object.keys(foodImages);
   let randomFood = foodKeys[randomIntFromInterval(0, foodKeys.length-1)];
   foodInTank.push(

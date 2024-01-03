@@ -121,10 +121,10 @@ export default class Fish {
       // For each food in tank, calculate distance between this fish
       let d = distance(this.x, this.y, food.x, food.y); 
       // If distance is within a certain amount, move towards food
-      if (d < 150) {
+      if (d < 250) {
         console.log('adjusting for food');
-        this.dx += (food.x - this.x) / 100;
-        this.dy += (food.y - this.y) / 100;
+        this.dx += (food.x - this.x) / 70;
+        this.dy += (food.y - this.y) / 70;
       }
     }); 
   }
@@ -132,6 +132,16 @@ export default class Fish {
   /* Moves the fish according to its velocity, making sure it's 
    * facing the right direction, and updating any anchored images. */
   update () {
+    /* If off-screen, teleport to random location and reset velocity */
+    let offscreenMargin = 50; 
+    if (this.x < -offscreenMargin || this.x > GAME_WIDTH + offscreenMargin
+        || this.y < -offscreenMargin || this.y > GAME_HEIGHT + offscreenMargin
+       ) {
+      this.x = randomIntFromInterval(100, 600);
+      this.y = randomIntFromInterval(100, 600);
+      this.setRandomVelocity(); 
+    }
+    
     // Move towards nearby food if not in the middle of an action
     if (!this.action) {
       this.moveTowardsFood(); 

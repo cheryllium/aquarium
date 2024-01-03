@@ -18,7 +18,6 @@ export default class ActionManager {
   }
 
   doAction (fish, action) {
-    console.log('doing action', action);
     switch (action.type) {
       case 'emote':
         fish.emote(action.value);
