@@ -8,9 +8,9 @@ export default class Food {
 
   update () {
     push();
-    
+
     translate(this.x, this.y);
-    rotate(radians(this.angle)); 
+    rotate(radians(this.angle));
     imageMode(CENTER); 
     image(foodImages[this.type], 0, 0);
     

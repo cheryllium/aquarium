@@ -115,10 +115,28 @@ export default class Fish {
     this.matchVelocity();
     this.limitSpeed(); 
   }
+
+  moveTowardsFood () {
+    foodInTank.forEach(food => {
+      // For each food in tank, calculate distance between this fish
+      let d = distance(this.x, this.y, food.x, food.y); 
+      // If distance is within a certain amount, move towards food
+      if (d < 150) {
+        console.log('adjusting for food');
+        this.dx += (food.x - this.x) / 100;
+        this.dy += (food.y - this.y) / 100;
+      }
+    }); 
+  }
   
   /* Moves the fish according to its velocity, making sure it's 
    * facing the right direction, and updating any anchored images. */
   update () {
+    // Move towards nearby food if not in the middle of an action
+    if (!this.action) {
+      this.moveTowardsFood(); 
+    }
+    
     // Update velocity based on state
     switch (this.state) {
       case states.BOIDING: 

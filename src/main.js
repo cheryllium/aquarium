@@ -60,10 +60,7 @@ function setup() {
       )
     );
   }
-
-  foodInTank.push(new Food('hamburger', 100, 100)); 
-  
-  routineManager.initialize(); 
+  routineManager.initialize();
 }
 
 function draw() {
