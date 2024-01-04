@@ -198,17 +198,18 @@ export default class Fish {
       scale(-1, 1);
       image(fishImage, -fishImage.width, 0);
       if (this.emotion) {
-        image(emoteImages[this.emotion],
-              -emoteImages[this.emotion].width - fishImages[this.type-1].width + 15,
-              -20);
+        image(speechBubbleImage, -fishImage.width - speechBubbleImage.width, -20);
+        scale(-1, 1); 
+        image(emoteImages[this.emotion], fishImage.width + 10, -17); 
       }
       pop(); 
     } else {
       image(fishImage, this.x, this.y);
       if (this.emotion) {
+        image(speechBubbleImage, this.x - speechBubbleImage.width, this.y - 20); 
         image(emoteImages[this.emotion],
-              this.x - fishImage.width + emoteImages[this.emotion].width/2 + 15,
-              this.y - 20);
+              this.x - speechBubbleImage.width + emoteImages[this.emotion].width/2 - 5,
+              this.y - 17);
       }
     }
   }

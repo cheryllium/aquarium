@@ -10,7 +10,8 @@ window.NUM_TYPES_FISH = 10;
 
 window.bg = null; // The aquarium's background image
 window.fishImages = []; // The fish images
-window.fishImagesSelected = []; 
+window.fishImagesSelected = [];
+window.speechBubbleImage = null; 
 window.emoteImages = {
   heart: null,
   happy: null,
@@ -44,8 +45,9 @@ function preload() {
   }
   
   // Load emote images
+  speechBubbleImage = loadImage("assets/speech-bubble-blank.png");
   for(let key of Object.keys(emoteImages)) {
-    emoteImages[key] = loadImage(`assets/speech/speech-bubble-${key}.png`)
+    emoteImages[key] = loadImage(`assets/emotes/${key}.png`)
   }
 
   // Load food images
