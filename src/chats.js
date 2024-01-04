@@ -1,3 +1,5 @@
+import { states as fishStates } from './fish.js';
+
 let pleasantChat = {
   description: "FISH1 and FISH2 are having a nice chat.", 
   start: ['wave', 'wave', 'smile'], 
@@ -9,7 +11,7 @@ let pleasantChat = {
 };
 let prankChat = {
   description: "FISH1 is playing a prank on FISH2!", 
-  start: ['boo', 'shocked', 'laugh'],
+  start: ['boo', 'surprised', 'laugh'],
   positive: ['laugh', 'heart', 'heart', 'A-happy', 'B-happy'],
   negative: ['angry', 'surprised', 'grumpy', 'B-unhappy'],
   isPositive: function (fish1, fish2) {
@@ -103,8 +105,12 @@ export default function generateChatScripts(fish1, fish2) {
   }
 
   // Construct the two actual scripts
-  let scriptA = [];
-  let scriptB = [];
+  let scriptA = [
+    { type: 'state', value: fishStates.IDLING, duration: 1000 } 
+  ];
+  let scriptB = [
+    { type: 'state', value: fishStates.IDLING, duration: 2000 }
+  ];
   let flagA = true;
   for(let cue of cues) {
     let action = {};

@@ -23,7 +23,8 @@ window.emoteImages = {
   surprised: null,
   yelling: null,
   boo: null,
-  sad: null, 
+  sad: null,
+  laugh: null,
 };
 window.foodImages = {
   broccoli: null,

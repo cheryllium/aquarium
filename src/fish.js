@@ -199,17 +199,17 @@ export default class Fish {
       scale(-1, 1);
       image(fishImage, -fishImage.width, 0);
       if (this.emotion) {
-        image(speechBubbleImage, -fishImage.width - speechBubbleImage.width, -20);
+        image(speechBubbleImage, -fishImage.width - speechBubbleImage.width + 5, -20);
         scale(-1, 1); 
-        image(emoteImages[this.emotion], fishImage.width + 10, -17); 
+        image(emoteImages[this.emotion], fishImage.width + 5, -17); 
       }
       pop(); 
     } else {
       image(fishImage, this.x, this.y);
       if (this.emotion) {
-        image(speechBubbleImage, this.x - speechBubbleImage.width, this.y - 20); 
+        image(speechBubbleImage, this.x - speechBubbleImage.width + 5, this.y - 20); 
         image(emoteImages[this.emotion],
-              this.x - speechBubbleImage.width + emoteImages[this.emotion].width/2 - 5,
+              this.x - speechBubbleImage.width + emoteImages[this.emotion].width/2,
               this.y - 17);
       }
     }
@@ -245,5 +245,11 @@ export default class Fish {
     if (addRecord) {
       uiManager.addRecord(`FISH1 is feeling ${this.mood}.`, this);
     }
+
+    if (this.selected) {
+      uiManager.updateFishInfo(); 
+    }
+
+    uiManager.updateFishStats(); 
   }
 }

@@ -4,9 +4,8 @@ import generateChatScripts from './chats.js';
 export const SCRIPTS = {
   happy: [
     { type: 'emote', value: 'happy', duration: 3000 }, // Set emote to happy, wait 3s
-    { type: 'emote', value: null, duration: 1000 }, // Set emote to nothing, wait 3s
+    { type: 'emote', value: null, duration: 1000 }, // Set emote to nothing, wait 1s
     { type: 'emote', value: 'heart', duration: 3000 }, // Set emote to heart, wait 3s
-    { type: 'mood', value: true, duration: 0}, // Set mood to happy
   ],
   moveToCorner: [
     { type: 'state', value: fishStates.MOVING, duration: 4000, moveto: {x: 500, y: 500} },
@@ -69,13 +68,6 @@ export default class RoutineManager {
         }
         // Fish radius is always hard-coded to the same value
         let radius2 = 10; 
-
-        // Draw the circles for debugging purposes
-        /*/
-        circle(center1.x, center1.y, radius1 * 2);
-        circle(center2.x, center2.y, radius2 * 2);
-        //*/
-
         let d = distance(center1.x, center1.y, center2.x, center2.y);
         let collision = d <= radius1 + radius2;
         
@@ -87,6 +79,7 @@ export default class RoutineManager {
             }
           );
           uiManager.addRecord(`FISH1 ate a delicious ${food.type}!`, fish);
+          fish.updateMood(true, true); 
         }
       }); 
     });
@@ -109,7 +102,7 @@ export default class RoutineManager {
     });
 
     // Random fish conversation
-    this.addEvent('conversations', 10000, 0.4, function () {
+    this.addEvent('conversations', 15000, 0.4, function () {
       let filteredFish = fishInTank.filter(fish => !fish.action);
 
       // Find two random fish
@@ -119,16 +112,15 @@ export default class RoutineManager {
         indexB = randomIntFromInterval(0, filteredFish.length-1);
       } while (indexB == indexA); 
 
-      console.log(generateChatScripts(filteredFish[indexA], filteredFish[indexB]));
-      
-      // Choose two random conversation scripts
-      let scriptA = JSON.parse(JSON.stringify(SCRIPTS.chat1[0]));
-      let scriptB = JSON.parse(JSON.stringify(SCRIPTS.chat1[1]));
+      // Choose random conversation script
+      let chat = generateChatScripts(filteredFish[indexA], filteredFish[indexB])
+      let scriptA = chat.scriptA; 
+      let scriptB = chat.scriptB;
       
       // Calculate two points near the midpoint to move the fish
       let midpoint = {x: randomIntFromInterval(200, 400), y:randomIntFromInterval(200, 600)}; 
       let pointA = {x: midpoint.x - fishImages[filteredFish[indexA].type-1].width/2, y: midpoint.y}; 
-      let pointB = {x: midpoint.x + fishImages[filteredFish[indexB].type-1].width/2 + 75, y: midpoint.y}; 
+      let pointB = {x: midpoint.x + fishImages[filteredFish[indexB].type-1].width/2 + 85, y: midpoint.y}; 
 
       // Flip the two fish to be facing each other (happens after move, must add to array first)
       scriptA.unshift({ type: 'flip', value: 'right', duration: 0 });
@@ -151,7 +143,7 @@ export default class RoutineManager {
       );
 
       // Add record
-      uiManager.addRecord("FISH1 and FISH2 are having a nice chat!", filteredFish[indexA], filteredFish[indexB]);
+      uiManager.addRecord(chat.record, filteredFish[indexA], filteredFish[indexB]);
     }); 
   }
 }

@@ -26,7 +26,10 @@ export default class UIManager {
   
   updateSelected(fish, value) {
     fish.selected = value;
+    this.updateFishInfo(); 
+  }
 
+  updateFishInfo() {
     // Update the UI
     let selectedFish = fishInTank.filter(fish => fish.selected);
     let selectedFishDiv = document.querySelector("#selected-fish");
@@ -49,6 +52,15 @@ export default class UIManager {
       // Add it to the selected fish div
       selectedFishDiv.appendChild(fishDiv); 
     });
+  }
+
+  updateFishStats() {
+    let happyCount = fishInTank.filter(fish => fish.goodMood).length;
+    let total = fishInTank.length;
+    let percentage = happyCount / total * 100; 
+    
+    let span = document.querySelector("#happy-percentage");
+    span.innerText = parseFloat(percentage).toFixed(2) + "%";
   }
 
   addRecord(text, fish1, fish2) {
