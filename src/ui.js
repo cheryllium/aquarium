@@ -40,11 +40,11 @@ export default class UIManager {
       fishImage.src = `assets/fish/fish${fish.type}.png`;
       
       // Create paragraphs for the name and personality
-      let nameParagraph = document.createElement("p");
-      nameParagraph.innerHTML = `<b>Name: </b>${fish.name}`;
+      let fishInfo = document.createElement("div");
+      fishInfo.innerHTML = `<b>Name: </b>${fish.name}<br><b>Mood: </b>${fish.mood}`;
 
       fishDiv.appendChild(fishImage);
-      fishDiv.appendChild(nameParagraph);
+      fishDiv.appendChild(fishInfo);
       
       // Add it to the selected fish div
       selectedFishDiv.appendChild(fishDiv); 

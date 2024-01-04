@@ -66,4 +66,3 @@ A: grumpy
 B: grumpy
 - If it goes down the negative branch, set both fish moods to unhappy.
 - If it goes down the positive branch, set both fish moods to happy.
-

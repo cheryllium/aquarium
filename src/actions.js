@@ -39,6 +39,8 @@ export default class ActionManager {
       case 'flip':
         fish.flipOverride = action.value;
         break;
+      case 'mood':
+        fish.updateMood(action.value, true); 
     }
   }
   

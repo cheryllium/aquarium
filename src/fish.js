@@ -21,7 +21,8 @@ export default class Fish {
     this.selected = false;
 
     // Personal information about this fish
-    this.name = randomFishName(); 
+    this.name = randomFishName();
+    this.updateMood(Math.random() > 0.5); 
   }
 
   setRandomVelocity() {
@@ -229,5 +230,20 @@ export default class Fish {
     this.setRandomVelocity(); 
     this.action = false;
     this.flipOverride = null; 
+  }
+
+  updateMood (goodMood, addRecord) {
+    let goodMoods = ["cheerful", "jovial", "happy", "great"];
+    let badMoods = ["grumpy", "upset", "moody", "down"]; 
+    this.goodMood = goodMood;
+    if (goodMood) {
+      this.mood = goodMoods[randomIntFromInterval(0, goodMoods.length-1)]; 
+    } else {
+      this.mood = badMoods[randomIntFromInterval(0, badMoods.length-1)]; 
+    }
+
+    if (addRecord) {
+      uiManager.addRecord(`FISH1 is feeling ${this.mood}.`, this);
+    }
   }
 }

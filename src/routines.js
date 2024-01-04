@@ -1,12 +1,12 @@
 import { states as fishStates } from './fish.js';
+import generateChatScripts from './chats.js';
 
 export const SCRIPTS = {
   happy: [
     { type: 'emote', value: 'happy', duration: 3000 }, // Set emote to happy, wait 3s
     { type: 'emote', value: null, duration: 1000 }, // Set emote to nothing, wait 3s
-    { type: 'state', value: fishStates.IDLING, duration: 1000 }, // Set state to idling
-    { type: 'state', value: fishStates.BOIDING, duration: 0 }, // Set state to boiding, go to next action
     { type: 'emote', value: 'heart', duration: 3000 }, // Set emote to heart, wait 3s
+    { type: 'mood', value: true, duration: 0}, // Set mood to happy
   ],
   moveToCorner: [
     { type: 'state', value: fishStates.MOVING, duration: 4000, moveto: {x: 500, y: 500} },
@@ -119,6 +119,8 @@ export default class RoutineManager {
         indexB = randomIntFromInterval(0, filteredFish.length-1);
       } while (indexB == indexA); 
 
+      console.log(generateChatScripts(filteredFish[indexA], filteredFish[indexB]));
+      
       // Choose two random conversation scripts
       let scriptA = JSON.parse(JSON.stringify(SCRIPTS.chat1[0]));
       let scriptB = JSON.parse(JSON.stringify(SCRIPTS.chat1[1]));
@@ -149,7 +151,7 @@ export default class RoutineManager {
       );
 
       // Add record
-      uiManager.addRecord(`FISH1 and FISH2 are having a nice chat!`, filteredFish[indexA], filteredFish[indexB]);
+      uiManager.addRecord("FISH1 and FISH2 are having a nice chat!", filteredFish[indexA], filteredFish[indexB]);
     }); 
   }
 }

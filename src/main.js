@@ -17,6 +17,13 @@ window.emoteImages = {
   happy: null,
   sleepy: null,
   angry: null,
+  grumpy: null,
+  wave: null,
+  smile: null,
+  surprised: null,
+  yelling: null,
+  boo: null,
+  sad: null, 
 };
 window.foodImages = {
   broccoli: null,
