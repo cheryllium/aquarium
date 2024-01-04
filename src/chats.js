@@ -25,7 +25,7 @@ let cheerUpChat = {
   description: "FISH1 is trying to cheer FISH2 up.", 
   start: ['smile', 'grumpy', 'heart'],
   positive: ['heart', 'happy', 'smile', 'B-happy'],
-  negative: ['angry', 'surprised', 'grumpy'],
+  negative: ['angry', 'surprised', 'grumpy', 'A-unhappy'],
   isPositive: function (fish1, fish2) {
     return Math.random() < 0.7; 
   }, 
