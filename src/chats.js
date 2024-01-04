@@ -16,9 +16,9 @@ let prankChat = {
   negative: ['angry', 'surprised', 'grumpy', 'B-unhappy'],
   isPositive: function (fish1, fish2) {
     if (!fish2.goodMood) {
-      return Math.random() < 0.3; 
+      return Math.random() < 0.5; 
     }
-    return Math.random() < 0.6;
+    return Math.random() < 0.9;
   },
 };
 let cheerUpChat = {
