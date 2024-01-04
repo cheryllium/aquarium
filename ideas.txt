@@ -1,0 +1,69 @@
+Fish moods can be either positive or negative. The mood word can be one of several words, but the actual mood that affects behavior is either good or bad.
+
+Pleasant Chat:
+- High chance to trigger.
+- Script:
+A: wave
+B: wave
+A: smile
+- Positive:
+B: smile
+A: happy
+B: heart
+- Negative:
+B: angry
+A: surprised
+B: grumpy
+- If it goes down the negative path, fish A's mood should be set to unhappy.
+- If it goes down the positive path, both fish should be set to happy.
+
+Play a Prank:
+- Chance to trigger.
+- Script:
+A: boo
+B: shocked
+A: laugh
+- Positive:
+B: laugh
+A: heart
+B: heart
+- Negative:
+B: angry
+A: fearful
+B: grumpy
+- If negative branch, then B should be put in a bad mood.
+- If positive branch, both fish should be cheered up. 
+
+Cheer Up:
+- High chance to trigger when a happy fish meets an unhappy fish. A = happy fish, B = unhappy fish
+- Script:
+A: smile
+B: grumpy
+A: heart
+- Positive branch:
+B: heart
+A: happy
+B: smile
+- Negative branch:
+B: angry
+A: surprised
+B: grumpy
+- If it goes down the positive branch, the unhappy fish's mood should be set to positive.
+
+Argument:
+- Slight chance to trigger all the time. Higher chance when both fish are grumpy.
+- Script:
+A: yelling
+B: angry
+A: angry
+- Positive:
+B: sad face
+A: heart
+B: heart
+- Negative:
+B: yelling
+A: grumpy
+B: grumpy
+- If it goes down the negative branch, set both fish moods to unhappy.
+- If it goes down the positive branch, set both fish moods to happy.
+

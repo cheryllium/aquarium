@@ -26,8 +26,8 @@ export default class UIManager {
   
   updateSelected(fish, value) {
     fish.selected = value;
-    
-    // Todo- Update the UI
+
+    // Update the UI
     let selectedFish = fishInTank.filter(fish => fish.selected);
     let selectedFishDiv = document.querySelector("#selected-fish");
     selectedFishDiv.innerHTML = "";
@@ -60,7 +60,7 @@ export default class UIManager {
       this.records = this.records.slice(0, 15)
     }
     
-    // Update the records
+    // Update the records UI
     let recordsDiv = document.querySelector("#records");
     recordsDiv.innerHTML = "";
     
@@ -81,8 +81,6 @@ export default class UIManager {
 
       // Add a click handler to recordDiv
       recordDiv.addEventListener("click", function() {
-        console.log('clicked', record.fish1);
-        
         // Update the selected status of all fishInTank to false
         fishInTank.forEach(fish => {
           if (fish.selected) {

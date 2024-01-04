@@ -18,8 +18,8 @@ function randomFishName() {
   let one = [
     "An", "Art",  "Bart", "Cal", "Cor", "Dar", "Dac", "Ell", "Fant", "Fin", "Gin", "Gan", "Gat", "Hol", "Holl", "Heff", "Hid", "Iol", "Is", "Jul", "Lor", "Lun", "Mack", "Nash", "Slart",  "Sol", 
   ];
-  let two = ["i", "a", "an", "o", "ou", "en"];
-  let three = ["na", "fer", "nol", "nette", "lette", "nice", "nis", "lyr", "la", "rice"];
+  let two = ["i", "a", "an", "o", "ou", "en", "u"];
+  let three = ["na", "fer", "nol", "nette", "lette", "nice", "nis", "lyr", "la", "rice", "rie", "ry", "lie", "ly"];
 
   randOne = one[randomIntFromInterval(0, one.length-1)];
   randTwo = two[randomIntFromInterval(0, two.length-1)];
