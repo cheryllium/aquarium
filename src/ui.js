@@ -50,7 +50,7 @@ export default class UIManager {
       
       // Create paragraphs for the name and personality
       let fishInfo = document.createElement("div");
-      fishInfo.innerHTML = `<b>Name: </b>${fish.name}`;
+      fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
       fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
       fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
 
@@ -88,13 +88,13 @@ export default class UIManager {
       let recordDiv = document.createElement("div");
 
       // Replace placeholders in the text with fish names
-      let formattedText = record.text.replace("FISH1", record.fish1.name);
+      let formattedText = record.text.replace("FISH1", `<span style='color:${record.fish1.favoriteColor}'>${record.fish1.name}</span>`);
       if (record.fish2) {
-        formattedText = formattedText.replace("FISH2", record.fish2.name);
+        formattedText = formattedText.replace("FISH2", `<span style='color:${record.fish2.favoriteColor}'>${record.fish2.name}</span>`);
       }
 
       // Set the formatted text inside recordDiv
-      recordDiv.textContent = formattedText;
+      recordDiv.innerHTML = formattedText;
 
       // Add the "record" class to recordDiv
       recordDiv.classList.add("record");

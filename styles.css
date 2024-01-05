@@ -30,3 +30,6 @@ html, body {
   cursor: pointer;
   color: #eee; 
 }
+.record:hover > span {
+  color: #eee!important; 
+}

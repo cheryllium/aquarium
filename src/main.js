@@ -69,6 +69,7 @@ function preload() {
 }
 
 function setup() {
+  colorMode(HSB); 
   createCanvas(GAME_WIDTH, GAME_HEIGHT);
 
   for(let i=0; i<30; i++) {
