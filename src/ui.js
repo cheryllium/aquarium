@@ -1,6 +1,7 @@
 export default class UIManager {
   constructor () {
     this.records = [];
+    this.journalSelected = null; 
 
     let leftSidebar = document.querySelector("#sidebar-left");
     leftSidebar.addEventListener("click", function (event) {
@@ -65,6 +66,86 @@ export default class UIManager {
     });
   }
 
+  createFishJournal() {
+    let listDiv = document.querySelector("#fish-list");
+    fishInTank
+      .toSorted((a, b) => a.name.localeCompare(b.name))
+      .forEach((fish) => {
+        let fishDiv = document.createElement("div");
+        fishDiv.classList.add("fish");
+        fishDiv.classList.add(`${fish.name}${fish.favoriteFood}${fish.type}`);
+
+        let fishImage = document.createElement("img");
+        fishImage.src = `assets/fish/fish${fish.type}.png`;
+        
+        let fishInfo = document.createElement("div");
+        fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
+        fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
+        fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+        
+        fishDiv.appendChild(fishImage);
+        fishDiv.appendChild(fishInfo);
+
+        fishDiv.addEventListener("click", function () {
+          this.setJournalSelected(fish); 
+        }.bind(this)); 
+        
+        listDiv.appendChild(fishDiv); 
+      }); 
+  }
+
+  setJournalSelected(fish) {
+    this.journalSelected = fish;
+    
+    let selectedDiv = document.querySelector("#fish-details");
+    selectedDiv.innerHTML = ""; 
+
+    let fishImage = document.createElement("img");
+    fishImage.src = `assets/fish/fish${fish.type}.png`;
+    
+    let fishInfo = document.createElement("div");
+    fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
+    fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
+    fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+
+    let fishHistory = document.createElement("div");
+    fishHistory.innerHTML = "<br /><b>History:</b>";
+    if (!fish.history.length) {
+      fishHistory.innerHTML += " none yet"; 
+    }
+    for(let history of fish.history) {
+      fishHistory.innerHTML += `<br />${history}`;
+    }
+    
+    selectedDiv.appendChild(fishImage);
+    selectedDiv.appendChild(fishInfo);
+    selectedDiv.appendChild(fishHistory); 
+  }
+
+  updateFishJournal(fish) {
+    // Only update that specific fish's div.
+    let fishDiv = document.querySelector(`.${fish.name}${fish.favoriteFood}${fish.type}`);
+    if (!fishDiv) return;
+
+    fishDiv.innerHTML = ""; 
+    
+    let fishImage = document.createElement("img");
+    fishImage.src = `assets/fish/fish${fish.type}.png`;
+    
+    let fishInfo = document.createElement("div");
+    fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
+    fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
+    fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+    
+    fishDiv.appendChild(fishImage);
+    fishDiv.appendChild(fishInfo);
+
+    // If selected, update the selected fish
+    if (this.journalSelected === fish) {
+      this.updateJournalSelected(fish); 
+    }
+  }
+  
   updateFishStats() {
     let happyCount = fishInTank.filter(fish => fish.goodMood).length;
     let total = fishInTank.length;

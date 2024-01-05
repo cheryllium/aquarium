@@ -19,10 +19,13 @@ export default class Fish {
 
     this.flipOverride = null;
     this.selected = false;
-
+    
+    this.history = [];
+    
     // Personal information about this fish
     this.name = randomFishName();
-    this.updateMood(Math.random() > 0.5);
+    let goodMood = Math.random() > 0.5; 
+    this.updateMood(goodMood, false, goodMood ? "is having a good day." : "is having a grumpy day.");
     this.favoriteFood = Object.keys(foodImages)[randomIntFromInterval(0, Object.keys(foodImages).length-1)];
     this.favoriteColor = color(
       randomIntFromInterval(0, 255),
@@ -257,7 +260,7 @@ export default class Fish {
     this.flipOverride = null; 
   }
 
-  updateMood (goodMood, addRecord) {
+  updateMood (goodMood, addRecord, reason) {
     let goodMoods = ["cheerful", "jovial", "happy", "great"];
     let badMoods = ["grumpy", "upset", "moody", "down"]; 
     this.goodMood = goodMood;
@@ -269,10 +272,16 @@ export default class Fish {
 
     if (addRecord) {
       uiManager.addRecord(`FISH1 is feeling ${this.mood}.`, this);
+      console.log(this.history); 
+    }
+
+    if (reason) {
+      this.history.unshift(`Feeling ${this.mood} because it ${reason}`);
     }
 
     if (this.selected) {
-      uiManager.updateFishInfo(); 
+      uiManager.updateFishInfo();
+      uiManager.updateFishJournal(this); 
     }
 
     uiManager.updateFishStats(); 

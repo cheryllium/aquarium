@@ -3,28 +3,44 @@
         <link rel="stylesheet" type="text/css" href="styles.css" />
     </head>
     <body>
-        <div id="game">
-            <div id="sidebar-left" class="sidebar">
-                <p>
-                    <span id="happy-percentage">0%</span> of your fish are in a good mood.
-                </p>
-                <p>Click anywhere to feed.</p>
-                <p>
-                    <button id="music-button">music: off</button>
-                </p>
-                
-                <h2>Selected Fish</h2>
-                <div id="selected-fish">
+        <br />
+        
+        <div id="tabs">
+            <a href="#game">Aquarium</a>
+            <a href="#journal">Journal</a>
+        </div>
+        <div id="main">
+            <div id="game" class="tab">
+                <div id="sidebar-left" class="sidebar">
+                    <p>
+                        <span id="happy-percentage">0%</span> of your fish are in a good mood.
+                    </p>
+                    <p>Click anywhere to feed.</p>
+                    <p>
+                        <button id="music-button">music: off</button>
+                    </p>
+                    
+                    <h2>Selected Fish</h2>
+                    <div id="selected-fish">
+                    </div>
+                </div>
+                <main></main>
+                <div id="sidebar-right" class="sidebar">
+                    <h2>Records</h2>
+                    <div id="records">
+                    </div>
                 </div>
             </div>
-            <main></main>
-            <div id="sidebar-right" class="sidebar">
-                <h2>Records</h2>
-                <div id="records">
+            <div id="journal" class="tab">
+                <div id="fish-list">
+                    
+                </div>
+                <div id="fish-details">
+                    
                 </div>
             </div>
         </div>
-        
+
         <script src="lib/p5.min.js"></script>
         <script src="lib/p5.sound.js"></script>
         <script src="src/utils.js"></script>

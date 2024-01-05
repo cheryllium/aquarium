@@ -43,6 +43,7 @@ window.lastMouseY = 0;
 window.mouseIdle = 0;
 
 window.bgMusic = null;
+window.journalOpen = false; 
 
 function preload() {
   // Load background image
@@ -89,6 +90,14 @@ function setup() {
   }
   routineManager.initialize();
   uiManager.updateFishInfo();
+  uiManager.createFishJournal();
+
+  document.querySelector("#game").addEventListener("click", function () {
+    journalOpen = false; 
+  });
+  document.querySelector("#journal").addEventListener("click", function () {
+    journalOpen = true; 
+  }); 
 }
 
 function draw() {
@@ -115,6 +124,11 @@ function draw() {
 }
 
 function mouseClicked(event) {
+  // Do nothing if in the journal
+  if (journalOpen) {
+    return; 
+  }
+  
   // Do nothing else if mouse is off screen
   if (mouseX < 0 || mouseX > GAME_WIDTH
       || mouseY < 0 || mouseY > GAME_HEIGHT) {

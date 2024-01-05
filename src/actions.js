@@ -40,7 +40,7 @@ export default class ActionManager {
         fish.flipOverride = action.value;
         break;
       case 'mood':
-        fish.updateMood(action.value, true); 
+        fish.updateMood(action.value, true, action.description); 
     }
   }
   

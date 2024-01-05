@@ -67,13 +67,13 @@ export default class RoutineManager {
             actionManager.fishRoutines.push({
               fish, script: SCRIPTS.heart,
             });
-            fish.updateMood(true, true); 
+            fish.updateMood(true, true, "got to eat its favorite food!"); 
           } else {
             actionManager.fishRoutines.push({
               fish, script: SCRIPTS.happy,
             });
             if (Math.random() < 0.6) {
-              fish.updateMood(true, true); 
+              fish.updateMood(true, true, `had a yummy ${food.type}.`); 
             }
           }
         }
@@ -112,12 +112,36 @@ export default class RoutineManager {
       indexA = randomIntFromInterval(0, filteredFish.length-1);
       do {
         indexB = randomIntFromInterval(0, filteredFish.length-1);
-      } while (indexB == indexA); 
+      } while (indexB == indexA);
+
+      let fish1 = filteredFish[indexA];
+      let fish2 = filteredFish[indexB]; 
 
       // Choose random conversation script
       let chat = generateChatScripts(filteredFish[indexA], filteredFish[indexB])
       let scriptA = chat.scriptA; 
       let scriptB = chat.scriptB;
+
+      // Fill in descriptions for mood actions in each script
+      for(let action of scriptA) {
+        if (action.description) {
+          console.log('got here');
+          action.description = action.description
+            .replace("FISH1", `<span style='color:${fish1.favoriteColor}'>${fish1.name}</span>`)
+            .replace("FISH2", `<span style='color:${fish2.favoriteColor}'>${fish2.name}</span>`);
+        }
+      }
+      for(let action of scriptB) {
+        if (action.description) {
+          console.log('got here');
+          action.description = action.description
+            .replace("FISH1", `<span style='color:${fish1.favoriteColor}'>${fish1.name}</span>`)
+            .replace("FISH2", `<span style='color:${fish2.favoriteColor}'>${fish2.name}</span>`);
+        }
+      }
+
+      console.log(scriptA);
+      console.log(scriptB);
       
       // Calculate two points near the midpoint to move the fish
       let midpoint = {x: randomIntFromInterval(100, 500), y:randomIntFromInterval(100, 700)}; 
