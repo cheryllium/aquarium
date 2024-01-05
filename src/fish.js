@@ -272,7 +272,6 @@ export default class Fish {
 
     if (addRecord) {
       uiManager.addRecord(`FISH1 is feeling ${this.mood}.`, this);
-      console.log(this.history); 
     }
 
     if (reason) {

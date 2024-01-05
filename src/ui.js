@@ -126,18 +126,13 @@ export default class UIManager {
   }
 
   updateFishJournal(fish) {
-    console.log('updating journal for', fish);
-    
     // Only update that specific fish's div.
     let fishDiv = document.querySelector(`.${fish.name}${fish.favoriteFood}${fish.type}`);
     if (!fishDiv) {
-      console.log('fish div not found');
       return;
     }
 
     fishDiv.innerHTML = "";
-
-    console.log('fishdiv', fishDiv);
     
     if (fish.goodMood) {
       fishDiv.classList.add("good-mood"); 

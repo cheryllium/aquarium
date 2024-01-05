@@ -125,7 +125,6 @@ export default class RoutineManager {
       // Fill in descriptions for mood actions in each script
       for(let action of scriptA) {
         if (action.description) {
-          console.log('got here');
           action.description = action.description
             .replace("FISH1", `<span style='color:${fish1.favoriteColor}'>${fish1.name}</span>`)
             .replace("FISH2", `<span style='color:${fish2.favoriteColor}'>${fish2.name}</span>`);
@@ -133,16 +132,12 @@ export default class RoutineManager {
       }
       for(let action of scriptB) {
         if (action.description) {
-          console.log('got here');
           action.description = action.description
             .replace("FISH1", `<span style='color:${fish1.favoriteColor}'>${fish1.name}</span>`)
             .replace("FISH2", `<span style='color:${fish2.favoriteColor}'>${fish2.name}</span>`);
         }
       }
 
-      console.log(scriptA);
-      console.log(scriptB);
-      
       // Calculate two points near the midpoint to move the fish
       let midpoint = {x: randomIntFromInterval(100, 500), y:randomIntFromInterval(100, 700)}; 
       let pointA = {x: midpoint.x - fishImages[filteredFish[indexA].type-1].width/2, y: midpoint.y}; 
