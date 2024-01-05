@@ -74,6 +74,9 @@ export default class UIManager {
         let fishDiv = document.createElement("div");
         fishDiv.classList.add("fish");
         fishDiv.classList.add(`${fish.name}${fish.favoriteFood}${fish.type}`);
+        if (fish.goodMood) {
+          fishDiv.classList.add("good-mood"); 
+        }
 
         let fishImage = document.createElement("img");
         fishImage.src = `assets/fish/fish${fish.type}.png`;
@@ -123,11 +126,24 @@ export default class UIManager {
   }
 
   updateFishJournal(fish) {
+    console.log('updating journal for', fish);
+    
     // Only update that specific fish's div.
     let fishDiv = document.querySelector(`.${fish.name}${fish.favoriteFood}${fish.type}`);
-    if (!fishDiv) return;
+    if (!fishDiv) {
+      console.log('fish div not found');
+      return;
+    }
 
-    fishDiv.innerHTML = ""; 
+    fishDiv.innerHTML = "";
+
+    console.log('fishdiv', fishDiv);
+    
+    if (fish.goodMood) {
+      fishDiv.classList.add("good-mood"); 
+    } else {
+      fishDiv.classList.remove("good-mood"); 
+    }
     
     let fishImage = document.createElement("img");
     fishImage.src = `assets/fish/fish${fish.type}.png`;

@@ -281,9 +281,9 @@ export default class Fish {
 
     if (this.selected) {
       uiManager.updateFishInfo();
-      uiManager.updateFishJournal(this); 
     }
-
+    
+    uiManager.updateFishJournal(this); 
     uiManager.updateFishStats(); 
   }
 }
