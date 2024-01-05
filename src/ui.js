@@ -153,7 +153,7 @@ export default class UIManager {
 
     // If selected, update the selected fish
     if (this.journalSelected === fish) {
-      this.updateJournalSelected(fish); 
+      this.setJournalSelected(fish); 
     }
   }
   
