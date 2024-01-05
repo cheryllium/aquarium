@@ -104,7 +104,7 @@ export default class RoutineManager {
     });
 
     // Random fish conversation
-    this.addEvent('conversations', 15000, 0.4, function () {
+    this.addEvent('conversations', 13000, 0.4, function () {
       let filteredFish = fishInTank.filter(fish => !fish.action);
 
       // Find two random fish
@@ -120,7 +120,7 @@ export default class RoutineManager {
       let scriptB = chat.scriptB;
       
       // Calculate two points near the midpoint to move the fish
-      let midpoint = {x: randomIntFromInterval(200, 400), y:randomIntFromInterval(200, 600)}; 
+      let midpoint = {x: randomIntFromInterval(100, 500), y:randomIntFromInterval(100, 700)}; 
       let pointA = {x: midpoint.x - fishImages[filteredFish[indexA].type-1].width/2, y: midpoint.y}; 
       let pointB = {x: midpoint.x + fishImages[filteredFish[indexB].type-1].width/2 + 85, y: midpoint.y}; 
 

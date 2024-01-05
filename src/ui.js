@@ -34,10 +34,16 @@ export default class UIManager {
     let selectedFish = fishInTank.filter(fish => fish.selected);
     let selectedFishDiv = document.querySelector("#selected-fish");
     selectedFishDiv.innerHTML = "";
+
+    if (!selectedFish.length) {
+      selectedFishDiv.innerHTML = "<p><i>No fish selected.</i></p>";
+      return; 
+    }
     
     selectedFish.forEach(fish => {
       // Construct the new element
       let fishDiv = document.createElement("div");
+      fishDiv.classList.add("fishinfo"); 
       
       let fishImage = document.createElement("img");
       fishImage.src = `assets/fish/fish${fish.type}.png`;

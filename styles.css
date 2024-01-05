@@ -19,3 +19,14 @@ html, body {
   text-align: center;
   width: 300px;
 }
+
+.fishinfo {
+  margin-top: 10px;
+  border: 2px dashed #053a59;
+  padding: 10px;
+}
+
+.record:hover {
+  cursor: pointer;
+  color: #eee; 
+}

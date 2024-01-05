@@ -77,6 +77,7 @@ function setup() {
     );
   }
   routineManager.initialize();
+  uiManager.updateFishInfo(); 
 }
 
 function draw() {
