@@ -36,7 +36,11 @@ window.fishInTank = []; // Fish currently in the tank
 window.foodInTank = []; 
 window.actionManager = new ActionManager();
 window.routineManager = new RoutineManager();
-window.uiManager = new UIManager(); 
+window.uiManager = new UIManager();
+
+window.lastMouseX = 0;
+window.lastMouseY = 0;
+window.mouseIdle = 0;
 
 function preload() {
   // Load background image
@@ -93,6 +97,14 @@ function draw() {
   
   actionManager.update();
   routineManager.update();
+
+  if (mouseX == lastMouseX && mouseY == lastMouseY) {
+    mouseIdle += deltaTime; 
+  } else {
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+    mouseIdle = 0;
+  }
 }
 
 function mouseClicked(event) {

@@ -129,6 +129,11 @@ export default class Fish {
         || mouseY < 0 || mouseY > GAME_HEIGHT) {
       return; 
     }
+
+    // Do nothing if mouse is idle
+    if (mouseIdle > 5000) {
+      return; 
+    }
     
     let d = distance(this.x, this.y, mouseX, mouseY);
     if (d < 200) {
