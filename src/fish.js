@@ -123,6 +123,20 @@ export default class Fish {
     this.limitSpeed(); 
   }
 
+  moveTowardsMouse () {
+    // Do nothing else if mouse is off screen
+    if (mouseX < 0 || mouseX > GAME_WIDTH
+        || mouseY < 0 || mouseY > GAME_HEIGHT) {
+      return; 
+    }
+    
+    let d = distance(this.x, this.y, mouseX, mouseY);
+    if (d < 200) {
+      this.dx += (mouseX - this.x) / 80;
+      this.dy += (mouseY - this.y) / 80; 
+    }
+  }
+  
   moveTowardsFood () {
     foodInTank.forEach(food => {
       // For each food in tank, calculate distance between this fish
@@ -145,14 +159,14 @@ export default class Fish {
   /* Moves the fish according to its velocity, making sure it's 
    * facing the right direction, and updating any anchored images. */
   update () {
-    // Move towards nearby food if not in the middle of an action
-    if (!this.action) {
-      this.moveTowardsFood(); 
-    }
-    
     // Update velocity based on state
     switch (this.state) {
-      case states.BOIDING: 
+      case states.BOIDING:
+        this.moveTowardsMouse();
+        // Move towards nearby food if not in the middle of an action
+        if (!this.action) {
+          this.moveTowardsFood(); 
+        }
         this.boids();
         break;
       case states.IDLING:
