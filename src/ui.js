@@ -57,9 +57,18 @@ export default class UIManager {
       fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
       fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
       fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+      fishInfo.innerHTML += "<br />"; 
 
+      let fishLink = document.createElement("a");
+      fishLink.href = "#journal";
+      fishLink.innerText = "Go to journal";
+      fishLink.addEventListener("click", function () {
+        this.setJournalSelected(fish); 
+      }.bind(this)); 
+      
       fishDiv.appendChild(fishImage);
       fishDiv.appendChild(fishInfo);
+      fishDiv.appendChild(fishLink); 
       
       // Add it to the selected fish div
       selectedFishDiv.appendChild(fishDiv); 
