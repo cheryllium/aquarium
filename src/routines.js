@@ -67,12 +67,15 @@ export default class RoutineManager {
             actionManager.fishRoutines.push({
               fish, script: SCRIPTS.heart,
             });
+            fish.updateMood(true, true); 
           } else {
             actionManager.fishRoutines.push({
               fish, script: SCRIPTS.happy,
             });
+            if (Math.random() < 0.6) {
+              fish.updateMood(true, true); 
+            }
           }
-          fish.updateMood(true, true); 
         }
       }); 
     });
