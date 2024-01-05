@@ -44,7 +44,9 @@ export default class UIManager {
       
       // Create paragraphs for the name and personality
       let fishInfo = document.createElement("div");
-      fishInfo.innerHTML = `<b>Name: </b>${fish.name}<br><b>Mood: </b>${fish.mood}`;
+      fishInfo.innerHTML = `<b>Name: </b>${fish.name}`;
+      fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
+      fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
 
       fishDiv.appendChild(fishImage);
       fishDiv.appendChild(fishInfo);

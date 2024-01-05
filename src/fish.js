@@ -22,7 +22,9 @@ export default class Fish {
 
     // Personal information about this fish
     this.name = randomFishName();
-    this.updateMood(Math.random() > 0.5); 
+    this.updateMood(Math.random() > 0.5);
+
+    this.favoriteFood = Object.keys(foodImages)[randomIntFromInterval(0, Object.keys(foodImages).length-1)];
   }
 
   setRandomVelocity() {

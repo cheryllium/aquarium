@@ -2,27 +2,15 @@ import { states as fishStates } from './fish.js';
 import generateChatScripts from './chats.js';
 
 export const SCRIPTS = {
+  heart: [
+    { type: 'emote', value: 'heart', duration: 3000 },
+  ],
   happy: [
-    { type: 'emote', value: 'happy', duration: 3000 }, // Set emote to happy, wait 3s
-    { type: 'emote', value: null, duration: 1000 }, // Set emote to nothing, wait 1s
-    { type: 'emote', value: 'heart', duration: 3000 }, // Set emote to heart, wait 3s
+    { type: 'emote', value: 'happy', duration: 3000 }, 
   ],
-  moveToCorner: [
-    { type: 'state', value: fishStates.MOVING, duration: 4000, moveto: {x: 500, y: 500} },
-    { type: 'state', value: fishStates.IDLING, duration: 4000 }
+  grumpy: [
+    { type: 'emote', value: 'grumpy', duration: 3000 },
   ],
-  chat1: [
-    [
-      { type: 'state', value: fishStates.IDLING, duration: 1000 }, 
-      { type: 'emote', value: 'happy', duration: 3000 },
-      { type: 'emote', value: 'heart', duration: 4000 },
-    ],
-    [
-      { type: 'state', value: fishStates.IDLING, duration: 2000 },
-      { type: 'emote', value: 'sleepy', duration: 3000 },
-      { type: 'emote', value: 'heart', duration: 3000 }, 
-    ], 
-  ], 
 };
 
 export default class RoutineManager {
@@ -73,12 +61,17 @@ export default class RoutineManager {
         
         if (collision) {
           food.remove = true;
-          actionManager.fishRoutines.push(
-            {
-              fish, script: SCRIPTS.happy,
-            }
-          );
           uiManager.addRecord(`FISH1 ate a delicious ${food.type}!`, fish);
+          if (food.type == fish.favoriteFood) {
+            uiManager.addRecord("It's FISH1's favorite food!", fish);
+            actionManager.fishRoutines.push({
+              fish, script: SCRIPTS.heart,
+            });
+          } else {
+            actionManager.fishRoutines.push({
+              fish, script: SCRIPTS.happy,
+            });
+          }
           fish.updateMood(true, true); 
         }
       }); 
@@ -89,16 +82,22 @@ export default class RoutineManager {
   }
 
   initialize () {
-    // Random happy fish
+    // Random fish emotes
     this.addEvent('general-mood', 4000, 0.5, function () {
       let filteredFish = fishInTank.filter(fish => !fish.action);
-      let fish = filteredFish[randomIntFromInterval(0, filteredFish.length - 1)]; 
-      actionManager.fishRoutines.push(
-        {
+      let fish = filteredFish[randomIntFromInterval(0, filteredFish.length - 1)];
+
+      if (fish.goodMood) {
+        actionManager.fishRoutines.push({
           fish,
           script: SCRIPTS.happy,
-        }
-      );
+        });
+      } else {
+        actionManager.fishRoutines.push({
+          fish,
+          script: SCRIPTS.grumpy,
+        });
+      }
     });
 
     // Random fish conversation
