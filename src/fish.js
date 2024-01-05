@@ -29,7 +29,6 @@ export default class Fish {
       255,
       25
     );
-    console.log(this.favoriteColor.toString());
   }
 
   setRandomVelocity() {

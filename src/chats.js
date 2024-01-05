@@ -47,9 +47,6 @@ let argumentChat = {
 };
 
 export default function generateChatScripts(fish1, fish2) {
-  console.log(`${fish1.name} is feeling ${fish1.mood}`);
-  console.log(`${fish2.name} is feeling ${fish2.mood}`);
-
   // Choose which chat the fish will have
   let chat = null;
   let chance = Math.random(); 
