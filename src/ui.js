@@ -112,10 +112,7 @@ export default class UIManager {
     fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
 
     let fishHistory = document.createElement("div");
-    fishHistory.innerHTML = "<br /><b>History:</b>";
-    if (!fish.history.length) {
-      fishHistory.innerHTML += " none yet"; 
-    }
+    fishHistory.innerHTML = "<br /><b>Mood Journal:</b>";
     for(let history of fish.history) {
       fishHistory.innerHTML += `<br />${history}`;
     }
