@@ -42,6 +42,8 @@ window.lastMouseX = 0;
 window.lastMouseY = 0;
 window.mouseIdle = 0;
 
+window.bgMusic = null;
+
 function preload() {
   // Load background image
   bg = loadImage('assets/background.png');
@@ -66,6 +68,10 @@ function preload() {
   for(let key of Object.keys(foodImages)) {
     foodImages[key] = loadImage(`assets/food/${key}.png`); 
   }
+
+  // Load audio file
+  soundFormats('mp3');
+  bgMusic = loadSound('assets/audio/soft_currents.mp3');
 }
 
 function setup() {
@@ -82,7 +88,7 @@ function setup() {
     );
   }
   routineManager.initialize();
-  uiManager.updateFishInfo(); 
+  uiManager.updateFishInfo();
 }
 
 function draw() {

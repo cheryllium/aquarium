@@ -33,3 +33,9 @@ html, body {
 .record:hover > span {
   color: #eee!important; 
 }
+
+button {
+  cursor: pointer; 
+  font-family: inherit;
+  background-color: #879cd9; 
+}

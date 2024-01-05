@@ -21,7 +21,10 @@ export default class UIManager {
           }
         });
       }
-    }.bind(this)); 
+    }.bind(this));
+
+    let btn = document.querySelector('#music-button');
+    btn.addEventListener("click", this.toggleMusic); 
   }
   
   updateSelected(fish, value) {
@@ -120,5 +123,16 @@ export default class UIManager {
       // Append recordDiv to recordsDiv
       recordsDiv.appendChild(recordDiv);
     }); 
+  }
+
+  toggleMusic() {
+    let btn = document.querySelector('#music-button');
+    if (bgMusic.isPlaying()) {
+      bgMusic.pause();
+      btn.innerText = "music: off";
+    } else {
+      bgMusic.loop();
+      btn.innerText = "music: on"; 
+    }
   }
 }
