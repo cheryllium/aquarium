@@ -16,10 +16,10 @@ function currentTime () {
 
 function randomFishName() {
   let one = [
-    "An", "Art",  "Bart", "Cal", "Cir", "Cor", "Dar", "Dan", "Dac", "El", "Fant", "Fin", "Gin", "Gan", "Gat", "Hol", "Hef", "Hid", "Iol", "Is", "Jul", "Lor", "Lun", "Mack", "Nash", "Ria", "Rhys", "Rud", "Slart",  "Sol", "Tan", "Tor", "Ul", "Var", "Vir", "Xan", "Yal"
+    "An", "Art", "Al", "Bart", "Ban", "Cal", "Cir", "Cor", "Dar", "Dan", "Dac", "El", "Fant", "Fin", "Gin", "Gan", "Gat", "Hol", "Hef", "Hid", "Iol", "Is", "Jul", "Lor", "Lun", "Mack", "Mer", "Nash", "Nin", "Ria", "Rhys", "Rud", "Sal", "Slart", "Sol", "Tan", "Tor", "Ul", "Var", "Vir", "Xan", "Yal"
   ];
   let two = ["i", "a", "an", "o", "ou", "en", "u"];
-  let three = ["na", "fer", "nol", "nette", "lette", "nice", "nis", "lyr", "la", "rice", "rie", "ry", "lie", "ly"];
+  let three = ["ba", "ce", "da", "fer", "gi", "na", "nol", "nette", "lette", "nice", "nis", "lyr", "la", "rice", "rie", "ry", "lie", "ly"];
 
   randOne = one[randomIntFromInterval(0, one.length-1)];
   randTwo = two[randomIntFromInterval(0, two.length-1)];
