@@ -1,3 +1,5 @@
+import { FISH_TYPES } from './fish.js';
+
 export default class UIManager {
   constructor () {
     this.records = [];
@@ -33,6 +35,26 @@ export default class UIManager {
     this.updateFishInfo(); 
   }
 
+  createFishDiv(fish) {
+    // Construct the new element
+    let fishDiv = document.createElement("div");
+    let fishImage = document.createElement("img");
+    fishImage.src = `assets/fish/fish${fish.type}.png`;
+
+    // Create paragraphs for the name and personality
+    let fishInfo = document.createElement("div");
+    fishInfo.innerHTML = `<b><span style='color: ${fish.favoriteColor}'>${fish.name}</span></b>`;
+    fishInfo.innerHTML += ` the ${FISH_TYPES[fish.type-1].name}`;
+    fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
+    fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+    fishInfo.innerHTML += "<br />"; 
+
+    fishDiv.appendChild(fishImage);
+    fishDiv.appendChild(fishInfo);
+    
+    return fishDiv; 
+  }
+  
   updateFishInfo() {
     // Update the UI
     let selectedFish = fishInTank.filter(fish => fish.selected);
@@ -45,20 +67,9 @@ export default class UIManager {
     }
     
     selectedFish.forEach(fish => {
-      // Construct the new element
-      let fishDiv = document.createElement("div");
-      fishDiv.classList.add("fishinfo"); 
+      let fishDiv = this.createFishDiv(fish);
+      fishDiv.classList.add("fishinfo");
       
-      let fishImage = document.createElement("img");
-      fishImage.src = `assets/fish/fish${fish.type}.png`;
-      
-      // Create paragraphs for the name and personality
-      let fishInfo = document.createElement("div");
-      fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
-      fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
-      fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
-      fishInfo.innerHTML += "<br />"; 
-
       let fishLink = document.createElement("a");
       fishLink.href = "#journal";
       fishLink.innerText = "Go to journal";
@@ -68,9 +79,6 @@ export default class UIManager {
         document.querySelector('#journal').classList.add("active");
         this.setJournalSelected(fish); 
       }.bind(this)); 
-      
-      fishDiv.appendChild(fishImage);
-      fishDiv.appendChild(fishInfo);
       fishDiv.appendChild(fishLink); 
       
       // Add it to the selected fish div
@@ -83,23 +91,12 @@ export default class UIManager {
     fishInTank
       .toSorted((a, b) => a.name.localeCompare(b.name))
       .forEach((fish) => {
-        let fishDiv = document.createElement("div");
+        let fishDiv = this.createFishDiv(fish); 
         fishDiv.classList.add("fish");
         fishDiv.classList.add(`${fish.name}${fish.favoriteFood}${fish.type}`);
         if (fish.goodMood) {
           fishDiv.classList.add("good-mood"); 
         }
-
-        let fishImage = document.createElement("img");
-        fishImage.src = `assets/fish/fish${fish.type}.png`;
-        
-        let fishInfo = document.createElement("div");
-        fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
-        fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
-        fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
-        
-        fishDiv.appendChild(fishImage);
-        fishDiv.appendChild(fishInfo);
 
         fishDiv.addEventListener("click", function () {
           this.setJournalSelected(fish); 
@@ -115,22 +112,17 @@ export default class UIManager {
     let selectedDiv = document.querySelector("#fish-details");
     selectedDiv.innerHTML = ""; 
 
-    let fishImage = document.createElement("img");
-    fishImage.src = `assets/fish/fish${fish.type}.png`;
-    
-    let fishInfo = document.createElement("div");
-    fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
-    fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
-    fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+    let fishDiv = this.createFishDiv(fish); 
 
+    fishDiv.innerHTML += `<p><i>${FISH_TYPES[fish.type-1].description}</i></p>`;
+    
     let fishHistory = document.createElement("div");
     fishHistory.innerHTML = "<br /><b>Mood Journal:</b>";
     for(let history of fish.history) {
       fishHistory.innerHTML += `<br />${history}`;
     }
     
-    selectedDiv.appendChild(fishImage);
-    selectedDiv.appendChild(fishInfo);
+    selectedDiv.appendChild(fishDiv)
     selectedDiv.appendChild(fishHistory); 
   }
 

@@ -5,6 +5,46 @@ export const states = {
 };
 let visualRange = 15; // Visual range of a fish
 
+export const FISH_TYPES = [
+  { name: 'Striped Mango',
+    description: "This demure-looking fish is actually quite aggressive, and has teeth sharper than obsidian. Watch out! If you get on its bad side, you might be missing fingers.",
+  },
+  { name: 'Blue Woobler',
+    description: "This fish had big dreams when it was young, but now it contents itself with the small things in life. It loves drifting with the currents, landscaping sand by fin, and jazz.",
+  },
+  { name: 'Finned Dazzler',
+    description: "This glamorous fish takes pride in its scintillating scales. Eyeshadow made from its crushed up scales is a popular commodity.",
+  },
+  {
+    name: "Durid Dart",
+    description: "This intrepid fish is known for bravely darting at its predators in a bid to startle them and escape. It likes to aim between the eyes.",
+  },
+  {
+    name: 'Ruby Brickfish',
+    description: "This industrious fish can often be found drawing blueprints in the sand for fantastical machines. However, it tragically lacks the opposable thumbs to build them.",
+  },
+  {
+    name: 'Mahogany Mackerel',
+    description: "This fish is known for periodically leaping out of streams to smack a tree. Why it does this is a great mystery of science.", 
+  },
+  {
+    name: 'Prismatic Pousse',
+    description: "It's said to be a sign of good luck if you catch one of these gorgeous fish.",
+  },
+  {
+    name: "Goldfish",
+    description: "Just a regular, normal goldfish.",
+  },
+  {
+    name: "Banded Bossfish",
+    description: "Although its genus contains many schooling species of fish, the banded bossfish is, in fact, too cool for school.",
+  },
+  {
+    name: "Plum Verveel",
+    description: "This fish is actually an eel which mysteriously has fins. Rumors are that this species was an abonimation created by man.", 
+  }
+];
+
 export default class Fish {
   constructor (type, x, y) {
     this.type = type;
