@@ -4,7 +4,7 @@ let pleasantChat = {
   description: "FISH1 and FISH2 are having a nice chat.", 
   start: ['wave', 'wave', 'smile'], 
   positive: ['smile', 'happy', 'heart', 'A-happy:had a nice chat with FISH2.', 'B-happy:had a nice chat with FISH1.'], 
-  negative: ['angry', 'surprised', 'grumpy', 'A-unhappy:tried to have a nice chat with FISH2, but FISH2 was in a bad mood.'],
+  negative: ['angry', 'surprised', 'grumpy', 'A-unhappy:tried to have a nice chat, but FISH2 was in a bad mood.'],
   isPositive: function (fish1, fish2) {
     return Math.random() < 0.8; 
   },
