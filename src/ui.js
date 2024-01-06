@@ -63,7 +63,9 @@ export default class UIManager {
       fishLink.href = "#journal";
       fishLink.innerText = "Go to journal";
       fishLink.addEventListener("click", function (event) {
-        event.stopPropagation(); 
+        event.stopPropagation();
+        journalOpen = true; 
+        document.querySelector('#journal').classList.add("active");
         this.setJournalSelected(fish); 
       }.bind(this)); 
       
