@@ -12,6 +12,12 @@ html, body {
   margin-left: auto;
   margin-right: auto; 
 }
+#game-screen {
+  width: 768px;
+  height: 768px;
+  background-color: #000;
+  color: #fff; 
+}
 #tabs {
   width: 1368px;
   margin-left: auto;

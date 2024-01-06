@@ -48,7 +48,9 @@ window.journalOpen = false;
 function preload() {
   // Load background image
   bg = loadImage('assets/background.png');
-
+  
+  document.querySelector('#loading').innerText = 'Loading... 10%';
+  
   // Load fish images
   for(let i=1; i<=NUM_TYPES_FISH; i++) {
     fishImages.push(
@@ -59,20 +61,28 @@ function preload() {
     );
   }
   
+  document.querySelector('#loading').innerText = 'Loading... 35%';
+  
   // Load emote images
   speechBubbleImage = loadImage("assets/speech-bubble-blank.png");
   for(let key of Object.keys(emoteImages)) {
     emoteImages[key] = loadImage(`assets/emotes/${key}.png`)
   }
 
+  document.querySelector('#loading').innerText = 'Loading... 50%';
+
   // Load food images
   for(let key of Object.keys(foodImages)) {
     foodImages[key] = loadImage(`assets/food/${key}.png`); 
   }
 
+  document.querySelector('#loading').innerText = 'Loading... 75%'; 
+
   // Load audio file
   soundFormats('mp3');
   bgMusic = loadSound('assets/audio/soft_currents.mp3');
+
+  document.querySelector('#loading').innerText = 'Loading... 99%'; 
 }
 
 function setup() {
@@ -102,7 +112,9 @@ function setup() {
     journalOpen = true;
     console.log(document.querySelector('#journal'));
     document.querySelector('#journal').classList.add("active");
-  }); 
+  });
+
+  document.querySelector('#loading').innerText = ''; 
 }
 
 function draw() {
