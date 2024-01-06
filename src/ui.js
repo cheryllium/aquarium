@@ -145,9 +145,11 @@ export default class UIManager {
     fishImage.src = `assets/fish/fish${fish.type}.png`;
     
     let fishInfo = document.createElement("div");
-    fishInfo.innerHTML = `<b>Name: </b><span style='color: ${fish.favoriteColor}'>${fish.name}</span>`;
+    fishInfo.innerHTML = `<b><span style='color: ${fish.favoriteColor}'>${fish.name}</span></b>`;
+    fishInfo.innerHTML += ` the ${FISH_TYPES[fish.type-1].name}`;
     fishInfo.innerHTML += `<br><b>Mood: </b>${fish.mood}`;
     fishInfo.innerHTML += `<br /><b>Favorite food: </b>${fish.favoriteFood}`;
+    fishInfo.innerHTML += "<br />"; 
     
     fishDiv.appendChild(fishImage);
     fishDiv.appendChild(fishInfo);
