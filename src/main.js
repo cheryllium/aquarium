@@ -92,11 +92,16 @@ function setup() {
   uiManager.updateFishInfo();
   uiManager.createFishJournal();
 
-  document.querySelector("#game").addEventListener("click", function () {
-    journalOpen = false; 
+  document.querySelector("#game-link").addEventListener("click", function (event) {
+    event.preventDefault(); 
+    journalOpen = false;
+    document.querySelector('#journal').classList.remove("active");
   });
-  document.querySelector("#journal").addEventListener("click", function () {
-    journalOpen = true; 
+  document.querySelector("#journal-link").addEventListener("click", function (event) {
+    event.preventDefault(); 
+    journalOpen = true;
+    console.log(document.querySelector('#journal'));
+    document.querySelector('#journal').classList.add("active");
   }); 
 }
 
