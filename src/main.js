@@ -112,7 +112,6 @@ function setup() {
   document.querySelector("#journal-link").addEventListener("click", function (event) {
     event.preventDefault(); 
     journalOpen = true;
-    console.log(document.querySelector('#journal'));
     document.querySelector('#journal').classList.add("active");
   });
 
