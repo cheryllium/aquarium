@@ -55,9 +55,9 @@ export default function generateChatScripts(fish1, fish2) {
   let chance = Math.random(); 
   if (fish1.goodMood && fish2.goodMood) {
     // Both fish are in a good mood
-    if (chance < 0.6) {
+    if (chance < 0.5) {
       chat = pleasantChat; 
-    } else if (chance < 0.9) {
+    } else if (chance < 0.8) {
       chat = prankChat; 
     } else {
       chat = argumentChat; 
